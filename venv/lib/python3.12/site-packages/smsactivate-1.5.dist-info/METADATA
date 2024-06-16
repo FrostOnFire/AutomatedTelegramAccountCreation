@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: smsactivate
+Version: 1.5
+Summary: smsactivate is an official Python module that provides out-of-the-box functions for working with the API sms-activate.org
+Author: SMS-Activate
+Author-email: info@keepcode.ru
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+### Installation smsactivate
+```sh
+pip install smsactivate
+```
+## Requires 
+- requests
+- json
+
+### Connection
+
+```python
+from smsactivate.api import SMSActivateAPI
+sa = SMSActivateAPI(APIKEY)
+sa.debug_mode = True # Optional action. Required for debugging
+```
+Description of the functionality of smsactivate is indicated on the [SMSActivate API](https://sms-activate.org/api2)
+
