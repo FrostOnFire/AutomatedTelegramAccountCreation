@@ -15,8 +15,14 @@ TG_API_ID = os.getenv("TG_API_ID")
 TG_API_HASH = os.getenv("TG_API_HASH")
 COUNTRY_CODE = os.getenv("COUNTRY_CODE")
 
-# Initialize the SMSActivateAPI without proxy support
-sa = SMSActivateAPI(API_KEY)
+# Proxy configuration
+PROXY = {
+    "http": "http://frostonfire8:yVzPZiJKuK@45.198.30.203:59100",
+    "https": "http://frostonfire8:yVzPZiJKuK@45.198.30.203:59100"
+}
+
+# Initialize the SMSActivateAPI without proxy support (modify internally if needed)
+sa = SMSActivateAPI(API_KEY)  # Assuming modification to accept proxy
 sa.debug_mode = True
 
 # Load names from file
@@ -81,10 +87,10 @@ def create_telegram_session(phone_number, activation_id, session_number):
             except Exception as e:
                 print("Failed to disconnect properly:", e)
 
-for I in range(1):  # Adjust the range as needed for multiple accounts
+for I in range(1):
     id, number = get_number()
     if id and number:
         create_telegram_session(number, id, I + 1)
-        sa.setStatus(id=id, status=6)  # Mark as complete
+        sa.setStatus(id=id, status=6)
     else:
         print("Number acquisition failed.")
