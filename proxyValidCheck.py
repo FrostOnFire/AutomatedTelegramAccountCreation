@@ -1,9 +1,9 @@
 import requests
 
 # List of proxies
-proxies_list = [
-    "212.83.149.33:9300"
-]
+proxies_list = {
+    "http": "socks5://frostonfire8:yVzPZiJKuK@193.5.64.184:59101"
+}
 
 # Function to check if a proxy is valid
 def is_proxy_valid(proxy):
@@ -14,6 +14,6 @@ def is_proxy_valid(proxy):
         return False
 
 # Filter out invalid proxies
-valid_proxies = [proxy for proxy in proxies_list if is_proxy_valid(proxy)]
+valid_proxies = {key: value for key, value in proxies_list.items() if is_proxy_valid(value)}
 
 print("Valid proxies:", valid_proxies)

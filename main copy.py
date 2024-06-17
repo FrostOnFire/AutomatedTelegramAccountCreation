@@ -15,7 +15,13 @@ TG_API_ID = os.getenv("TG_API_ID")
 TG_API_HASH = os.getenv("TG_API_HASH")
 COUNTRY_CODE = os.getenv("COUNTRY_CODE")
 
-# Initialize the SMSActivateAPI without proxy support
+# Set up proxy for all requests
+proxy_dict = {
+    "http": "socks5://frostonfire8:yVzPZiJKuK@193.5.64.184:59101",
+    "https": "socks5://frostonfire8:yVzPZiJKuK@193.5.64.184:59101"
+}
+
+# Initialize the SMSActivateAPI with proxy support
 sa = SMSActivateAPI(API_KEY)
 sa.debug_mode = True
 
@@ -41,7 +47,7 @@ def get_sms(activation_id, timeout=900):
     start_time = time.time()
     while time.time() - start_time < timeout:
         status_response = sa.getStatus(id=activation_id)
-        print("[Debug] SMS Response:", sa.getFullSms(activation_id))
+        print("[Debug] Status Response:", status_response)
         if 'STATUS_OK' in status_response:
             return status_response.split(':')[1]
         elif 'STATUS_WAIT_CODE' in status_response or 'STATUS_WAIT_RESEND' in status_response:
@@ -81,10 +87,10 @@ def create_telegram_session(phone_number, activation_id, session_number):
             except Exception as e:
                 print("Failed to disconnect properly:", e)
 
-for I in range(1):  # Adjust the range as needed for multiple accounts
+for i in range(1):  # Adjust the range as needed for multiple accounts
     id, number = get_number()
     if id and number:
-        create_telegram_session(number, id, I + 1)
+        create_telegram_session(number, id, i + 1)
         sa.setStatus(id=id, status=6)  # Mark as complete
     else:
         print("Number acquisition failed.")
